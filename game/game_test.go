@@ -18,11 +18,11 @@ var printBoardTests = []struct {
 
 func TestBoardStringer(t *testing.T) {
 	for _, tt := range printBoardTests {
-		b := new(arrayBoard)
+		b := NewBoard()
 		tt.markerPlacer(b)
 		o := b.String()
 		if tt.output != o {
-			t.Errorf("\nExpected: %v \nGot: %v", tt.output, o)
+			t.Errorf("\nExpected:\n %v \nGot:\n %v", tt.output, o)
 		}
 	}
 
