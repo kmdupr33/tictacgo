@@ -55,7 +55,7 @@ type Game struct {
 }
 
 //Play starts a game of tictacto
-func (g Game) Play() {
+func (g *Game) Play() {
 	fmt.Println("A new game has started! Type 'help' for instructions on how to play")
 	for !g.isGameWon() || !g.isCatsGame() {
 		g.playTurn()
@@ -81,18 +81,18 @@ var winningPositions = [8]winningPlacement{
 	{{0, 2}, {1, 2}, {2, 2}},
 }
 
-func (g Game) isGameWon() bool {
+func (g *Game) isGameWon() bool {
 	if g.turn < 4 {
 		return false
 	}
 	return true
 }
 
-func (g Game) isCatsGame() bool {
+func (g *Game) isCatsGame() bool {
 	return g.board.IsFull()
 }
 
-func (g Game) playTurn() {
+func (g *Game) playTurn() {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Printf("%v's Turn: ", g.currentPlayer)
 	text, _ := reader.ReadString('\n')
