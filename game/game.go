@@ -1,11 +1,5 @@
 package game
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-)
-
 //-------------------------------------------------
 // PlayerMarker
 //-------------------------------------------------
@@ -43,24 +37,20 @@ func (m Marker) String() string {
 
 //NewGame returns a new game of tictacto
 func NewGame() *Game {
-	return &Game{board: NewBoard(), currentPlayer: Player{}}
+	p1 := new(Player)
+	p2 := new(Player)
+	return &Game{board: NewBoard(),
+		players:       []*Player{p1, p2},
+		currentPlayer: p1}
 }
 
 //Game represents a game of tictacto
 type Game struct {
 	board         Board
-	currentPlayer Player
-	winner        Player
+	currentPlayer *Player
+	players       []*Player
+	winner        *Player
 	turn          int
-}
-
-//Play starts a game of tictacto
-func (g *Game) Play() {
-	fmt.Println("A new game has started! Type 'help' for instructions on how to play")
-	for !g.isGameWon() || !g.isCatsGame() {
-		g.playTurn()
-	}
-	fmt.Printf("%v's game!", g.winner)
 }
 
 //Position represents a positon on a tictacto grid
@@ -81,27 +71,25 @@ var winningPositions = [8]winningPlacement{
 	{{0, 2}, {1, 2}, {2, 2}},
 }
 
-func (g *Game) isGameWon() bool {
+func (g *Game) IsGameWon() bool {
 	if g.turn < 4 {
 		return false
 	}
 	return true
 }
 
-func (g *Game) isCatsGame() bool {
+func (g *Game) IsCatsGame() bool {
 	return g.board.IsFull()
 }
 
-func (g *Game) playTurn() {
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Printf("%v's Turn: ", g.currentPlayer)
-	text, _ := reader.ReadString('\n')
-	if text == "help" {
-		printInstructions()
-	}
-	fmt.Println(text)
+func (g *Game) Winner() *Player {
+	return g.winner
 }
 
-func printInstructions() {
+func (g *Game) playTurn() {
+	g.turn++
+}
 
+func (g *Game) CurrentPlayer() *Player {
+	return g.currentPlayer
 }

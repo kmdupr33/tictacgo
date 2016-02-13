@@ -52,7 +52,7 @@ func TestIsGameWon(t *testing.T) {
 	for _, tt := range gameWonTests {
 		g := NewGame()
 		tt.markerPlacer(g.board)
-		w := g.isGameWon()
+		w := g.IsGameWon()
 		if w != tt.won {
 			t.Errorf("Expected: %v Got: %v", tt.won, w)
 		}
