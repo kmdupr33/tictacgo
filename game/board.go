@@ -12,7 +12,7 @@ import (
 //Board represents the "grid" where Player's markers can be placed
 type Board interface {
 	IsFull() bool
-	MarkerAt(p Position) Marker
+	SpaceAt(p Position) *Space
 	PlaceMarker(pos Position, m Marker) error
 	fmt.Stringer
 }
@@ -30,8 +30,8 @@ func (b *arrayBoard) IsFull() bool {
 	return true
 }
 
-func (b *arrayBoard) MarkerAt(p Position) Marker {
-	return b[p.x][p.y].marker
+func (b *arrayBoard) SpaceAt(p Position) *Space {
+	return b[p.x][p.y]
 }
 
 func (b *arrayBoard) PlaceMarker(pos Position, m Marker) error {
@@ -46,8 +46,8 @@ func (b *arrayBoard) PlaceMarker(pos Position, m Marker) error {
 func (b arrayBoard) String() string {
 	return fmt.Sprintf("|---|---|---|\n| %v | %v | %v |\n|---|---|---|\n| %v | %v | %v |\n|---|---|---|\n| %v | %v | %v |\n|---|---|---|\n",
 		b[0][0], b[1][0], b[2][0],
-		b[1][0], b[1][1], b[1][2],
-		b[2][0], b[2][1], b[2][2])
+		b[0][1], b[1][1], b[1][2],
+		b[0][2], b[2][1], b[2][2])
 }
 
 //NewBoard creates a new empty game board
