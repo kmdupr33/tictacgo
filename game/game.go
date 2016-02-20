@@ -19,9 +19,7 @@ type Game struct {
 	players            []*Player
 	winner             *Player
 	turn               int
-	//setups maps a position on the board to a slice of positions that
-	//, if played, would put a player one move away from winning the game
-	setups map[Position][]Position
+	winChecker         WinChecker
 }
 
 //Position represents a positon on a tictacto grid
@@ -68,11 +66,6 @@ func (g *Game) PlayTurn(p Position) error {
 
 	return nil
 }
-
-func (g *Game) updateSetups(p Position) {
-
-}
-
 func (g *Game) CurrentPlayer() *Player {
 	return g.players[g.currentPlayerIndex]
 }
