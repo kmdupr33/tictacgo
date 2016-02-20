@@ -89,7 +89,7 @@ var gameWonTests = []struct {
 func Game_IsWon(t *testing.T) {
 	for _, tt := range gameWonTests {
 		t.Logf("Starting test called: %s", tt.name)
-		g := NewGame()
+		g := New()
 		tt.gamePlayer(g)
 		w := g.IsWon()
 		if w != tt.won {

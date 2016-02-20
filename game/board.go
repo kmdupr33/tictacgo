@@ -31,16 +31,23 @@ func (b *arrayBoard) IsFull() bool {
 }
 
 func (b *arrayBoard) SpaceAt(p Position) *Space {
-	return b[p.x][p.y]
+	return b[p.X][p.Y]
 }
 
 func (b *arrayBoard) PlaceMarker(pos Position, m Marker) error {
-	s := b[pos.x][pos.y]
+	if !isValCoord(pos.X) || !isValCoord(pos.Y) {
+		return errors.New("invalid coordinate")
+	}
+	s := b[pos.X][pos.Y]
 	if !s.IsEmpty() {
 		return errors.New("game: space already occupied")
 	}
 	s.marker = m
 	return nil
+}
+
+func isValCoord(x int) bool {
+	return x > -1 && x < 3
 }
 
 func (b arrayBoard) String() string {

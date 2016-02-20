@@ -1,11 +1,13 @@
 package game
 
+import "fmt"
+
 //-------------------------------------------------
 // Game
 //-------------------------------------------------
 
 //NewGame returns a new game of tictacto
-func NewGame() *Game {
+func New() *Game {
 	p1 := &Player{marker: X}
 	p2 := &Player{marker: O}
 	return &Game{board: NewBoard(),
@@ -23,9 +25,14 @@ type Game struct {
 	winChecker         WinChecker
 }
 
+func (g *Game) String() string {
+	return fmt.Sprintln(g.board) +
+		fmt.Sprintf("%v's Turn: ", g.CurrentPlayer())
+}
+
 //Position represents a positon on a tictacto grid
 type Position struct {
-	x, y int
+	X, Y int
 }
 
 func (g *Game) IsWon() bool {
@@ -45,8 +52,9 @@ func (g *Game) Winner() *Player {
 }
 
 //PlayTurn places a marker for the current player at the
-//position passed in. It returns an error if this method is called when the it is
-//not this player's turn to play.
+//position passed in. It returns an error if
+//the space at the position passed in has already been filled
+//or if the position passed in has invalid x or y coordinates
 func (g *Game) PlayTurn(p Position) error {
 	cp := g.CurrentPlayer()
 	err := g.board.PlaceMarker(p, cp.marker)

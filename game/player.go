@@ -34,3 +34,7 @@ type Player struct {
 func NewPlayer(m Marker) *Player {
 	return &Player{marker: m}
 }
+
+func (p *Player) String() string {
+	return p.marker.String()
+}
