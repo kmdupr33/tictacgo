@@ -6,7 +6,7 @@ import "fmt"
 // Game
 //-------------------------------------------------
 
-//NewGame returns a new game of tictacto
+//New returns a new game of tictacto
 func New() *Game {
 	p1 := &Player{marker: X}
 	p2 := &Player{marker: O}
@@ -30,16 +30,17 @@ func (g *Game) String() string {
 	if !g.IsWon() {
 		return string +
 			fmt.Sprintf("%v's Turn: ", g.CurrentPlayer())
-	} else {
-		return string + fmt.Sprintf("%v's game!\n", g.Winner())
 	}
+	return string + fmt.Sprintf("%v's game!\n", g.Winner())
 }
 
-//Position represents a positon on a tictacto grid
+//Position represents a positon on a tictacto grid valid x and y values
+//are [0,2]
 type Position struct {
 	X, Y int
 }
 
+//IsWon returns whether the game has a winner already
 func (g *Game) IsWon() bool {
 	if g.turn < 4 {
 		return false
@@ -48,10 +49,13 @@ func (g *Game) IsWon() bool {
 	return g.winChecker.Winner() != nil
 }
 
+//IsCatsGame returns whether the game has a winner
 func (g *Game) IsCatsGame() bool {
 	return g.board.IsFull()
 }
 
+//Winner returns the winner of the game or nil if there is no
+//winner
 func (g *Game) Winner() *Player {
 	return g.winChecker.Winner()
 }
@@ -76,6 +80,8 @@ func (g *Game) PlayTurn(p Position) error {
 
 	return nil
 }
+
+//CurrentPlayer returns the Player whose turn is currently active
 func (g *Game) CurrentPlayer() *Player {
 	return g.players[g.currentPlayerIndex]
 }
