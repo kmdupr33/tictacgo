@@ -22,7 +22,7 @@ type arrayBoard [3][3]*Space
 func (b *arrayBoard) IsFull() bool {
 	for i := 0; i < 3; i++ {
 		for _, s := range b[i] {
-			if s.marker == Marker(0) {
+			if s.IsEmpty() {
 				return false
 			}
 		}
