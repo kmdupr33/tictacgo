@@ -46,7 +46,7 @@ func main() {
 		}
 
 	}
-	fmt.Printf("%v's game!", g.Winner())
+	fmt.Println(g)
 }
 
 func printNewGameMessage() {

@@ -26,8 +26,13 @@ type Game struct {
 }
 
 func (g *Game) String() string {
-	return fmt.Sprintln(g.board) +
-		fmt.Sprintf("%v's Turn: ", g.CurrentPlayer())
+	string := g.board.String()
+	if !g.IsWon() {
+		return string +
+			fmt.Sprintf("%v's Turn: ", g.CurrentPlayer())
+	} else {
+		return string + fmt.Sprintf("%v's game!\n", g.Winner())
+	}
 }
 
 //Position represents a positon on a tictacto grid
