@@ -1,7 +1,5 @@
 package game
 
-import "fmt"
-
 //-------------------------------------------------
 // Marker
 //-------------------------------------------------
@@ -29,27 +27,9 @@ func (m Marker) String() string {
 
 //Player is a tictacto player
 type Player struct {
-	marker           Marker
-	playedPositions  []Position
-	possibWinningPos []winningPlacement
+	marker Marker
 }
 
 func NewPlayer(m Marker) *Player {
-	return &Player{marker: m,
-		possibWinningPos: winningPositions[:]}
-}
-
-func (p *Player) removePossibleWins(pos Position) {
-	for i, wp := range p.possibWinningPos {
-		fmt.Printf("winning position: %v at index: %d\n", wp, i)
-		for _, wpos := range wp {
-			fmt.Printf("examining winning pos: %v", p.possibWinningPos[i])
-			if wpos == pos {
-				fmt.Println("removePossibleWins(): Found matching winning position")
-				p.possibWinningPos = append(p.possibWinningPos[:i],
-					p.possibWinningPos[i+1:]...)
-			}
-		}
-	}
-
+	return &Player{marker: m}
 }

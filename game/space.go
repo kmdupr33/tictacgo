@@ -8,21 +8,8 @@ import "fmt"
 
 //Space represents a spot within the gameboard that can be filled with a player marker
 type Space struct {
-	marker    Marker
-	neighbors []*Space
+	marker Marker
 	fmt.Stringer
-}
-
-//check() checks whether there are adjacent spaces that have the same
-//player marker as the player marker within this space
-func (s *Space) check() []*Space {
-	var matchingNeighbors []*Space
-	for _, n := range s.neighbors {
-		if s.marker == n.marker {
-			matchingNeighbors = append(matchingNeighbors, n)
-		}
-	}
-	return matchingNeighbors
 }
 
 func (s *Space) String() string {

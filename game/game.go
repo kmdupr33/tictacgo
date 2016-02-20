@@ -19,42 +19,11 @@ type Game struct {
 	players            []*Player
 	winner             *Player
 	turn               int
-	winningPlacements  map[*Player][]Position
 }
 
 //Position represents a positon on a tictacto grid
 type Position struct {
 	x, y int
-}
-
-type winningPlacement [3]Position
-
-//Two sets
-
-//The set of played positions
-//The set of positions that are members
-//of any remaining possible winning set of positions
-
-//Ideally, we only search the union of these ^^ sets
-
-// func (w winningPlacement) missingPositions(p *Player) []Position {
-// 	for _, pos := range w {
-// 		for _, ppos := range p.possibWinningPos {
-//
-// 		}
-// 	}
-// 	return nil
-// }
-
-var winningPositions = [8]winningPlacement{
-	{{0, 0}, {0, 1}, {0, 2}},
-	{{0, 0}, {1, 0}, {2, 0}},
-	{{0, 0}, {1, 1}, {2, 2}},
-	{{1, 0}, {1, 1}, {1, 2}},
-	{{2, 0}, {2, 1}, {2, 2}},
-	{{2, 0}, {1, 1}, {0, 2}},
-	{{0, 1}, {1, 1}, {2, 1}},
-	{{0, 2}, {1, 2}, {2, 2}},
 }
 
 func (g *Game) IsGameWon() bool {
@@ -90,19 +59,11 @@ func (g *Game) PlayTurn(p Position) error {
 	}
 	g.turn++
 
-	g.calculateWinningPlays(cp)
-
 	//Update current player
 	//g.currentPlayerIndex should only ever be 0 or 1
 	g.currentPlayerIndex = -g.currentPlayerIndex + 1
 
 	return nil
-}
-
-func (g *Game) calculateWinningPlays(p *Player) {
-
-	for _, placement := range p.possibWinningPos {
-	}
 }
 
 func (g *Game) CurrentPlayer() *Player {

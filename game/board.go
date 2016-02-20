@@ -71,17 +71,5 @@ func NewBoard() Board {
 		{bls, bms, brs},
 	}
 
-	tls.neighbors = append(tls.neighbors, tms, mls)
-	tms.neighbors = append(tms.neighbors, tls, trs, mms)
-	trs.neighbors = append(trs.neighbors, tms, mrs)
-
-	mls.neighbors = append(mls.neighbors, tls, bls, mms)
-	mms.neighbors = append(mms.neighbors, tms, bms, mls, mrs)
-	mrs.neighbors = append(mrs.neighbors, mms, trs, brs)
-
-	bls.neighbors = append(bls.neighbors, bms, mls)
-	bms.neighbors = append(mls.neighbors, bls, brs, mms)
-	brs.neighbors = append(brs.neighbors, mrs, bms)
-
 	return a
 }
