@@ -1,44 +1,5 @@
 package game
 
-import "fmt"
-
-//Player is a tictacto player
-type Player struct {
-	marker                   Marker
-	playedSpaces             []Position
-	possibleWinningPositions []winningPlacement
-}
-
-func (p *Player) NewPlayer(m Marker) *Player {
-	return &Player{marker: m,
-		possibleWinningPositions: winningPositions[:]}
-}
-
-//-------------------------------------------------
-// Marker
-//-------------------------------------------------
-
-//Marker is an "X" or an "O" within the tictacto grid
-type Marker int
-
-//Player Markers
-const (
-	_        = iota
-	X Marker = iota
-	O Marker = iota
-)
-
-func (m Marker) String() string {
-	switch m {
-	case X:
-		return "X"
-	case O:
-		return "O"
-	default:
-		return " "
-	}
-}
-
 //-------------------------------------------------
 // Game
 //-------------------------------------------------
@@ -58,6 +19,7 @@ type Game struct {
 	players            []*Player
 	winner             *Player
 	turn               int
+	winningPlacements  map[*Player][]Position
 }
 
 //Position represents a positon on a tictacto grid
@@ -66,6 +28,23 @@ type Position struct {
 }
 
 type winningPlacement [3]Position
+
+//Two sets
+
+//The set of played positions
+//The set of positions that are members
+//of any remaining possible winning set of positions
+
+//Ideally, we only search the union of these ^^ sets
+
+// func (w winningPlacement) missingPositions(p *Player) []Position {
+// 	for _, pos := range w {
+// 		for _, ppos := range p.possibWinningPos {
+//
+// 		}
+// 	}
+// 	return nil
+// }
 
 var winningPositions = [8]winningPlacement{
 	{{0, 0}, {0, 1}, {0, 2}},
@@ -83,22 +62,12 @@ func (g *Game) IsGameWon() bool {
 		return false
 	}
 
-	for _, p := range g.players {
-		for _, ps := range p.playedSpaces {
-			sp := g.board.SpaceAt(ps)
-			neighbors := sp.check()
-			fmt.Println(neighbors)
-			for _, n := range neighbors {
-				for _, nn := range n.check() {
-					if nn != n {
-						g.winner = p
-						return true
-					}
-				}
-			}
-		}
-	}
+	g.isGameWon(g.board.SpaceAt(Position{0, 0}))
 
+	return false
+}
+
+func (g *Game) isGameWon(s *Space) bool {
 	return false
 }
 
@@ -120,10 +89,20 @@ func (g *Game) PlayTurn(p Position) error {
 		return err
 	}
 	g.turn++
-	cp.playedSpaces = append(cp.playedSpaces, p)
+
+	g.calculateWinningPlays(cp)
+
+	//Update current player
 	//g.currentPlayerIndex should only ever be 0 or 1
 	g.currentPlayerIndex = -g.currentPlayerIndex + 1
+
 	return nil
+}
+
+func (g *Game) calculateWinningPlays(p *Player) {
+
+	for _, placement := range p.possibWinningPos {
+	}
 }
 
 func (g *Game) CurrentPlayer() *Player {
