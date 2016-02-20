@@ -1,6 +1,9 @@
 package game
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 //-------------------------------------------------
 // Game
@@ -8,6 +11,7 @@ import "fmt"
 
 //New returns a new game of tictacto
 func New() *Game {
+	log.Print("New Game started")
 	p1 := &Player{marker: X}
 	p2 := &Player{marker: O}
 	return &Game{board: NewBoard(),
@@ -30,8 +34,10 @@ func (g *Game) String() string {
 	if !g.IsWon() {
 		return string +
 			fmt.Sprintf("%v's Turn: ", g.CurrentPlayer())
+	} else if !g.IsCatsGame() {
+		return string + fmt.Sprintf("%v's game!\n", g.Winner())
 	}
-	return string + fmt.Sprintf("%v's game!\n", g.Winner())
+	return string + fmt.Sprintf("Cat's game!")
 }
 
 //Position represents a positon on a tictacto grid valid x and y values

@@ -1,5 +1,7 @@
 package game
 
+import "log"
+
 func NewWinChecker() WinChecker {
 	setups := make(map[Position][]winningPlay)
 	winningPlay := make(map[Position]*Player)
@@ -38,8 +40,11 @@ func (m *mapWinChecker) Winner() *Player {
 
 func (m *mapWinChecker) TurnPlayed(p *Player, pos Position) {
 	if w, ok := m.winningPlay[pos]; ok {
-		m.winner = w
-		return
+		if w == p {
+			log.Printf("Winning play at: %v made by: %v", pos, p)
+			m.winner = w
+			return
+		}
 	}
 
 	if wps, ok := m.setups[pos]; ok {

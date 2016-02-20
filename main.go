@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -11,6 +12,12 @@ import (
 )
 
 func main() {
+
+	f, err := os.Create("./log.txt")
+	if err != nil {
+		fmt.Println("Couldnt create log file")
+	}
+	log.SetOutput(f)
 
 	g := game.New()
 

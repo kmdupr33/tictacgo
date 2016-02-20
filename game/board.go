@@ -53,8 +53,8 @@ func isValCoord(x int) bool {
 func (b arrayBoard) String() string {
 	return fmt.Sprintf("|---|---|---|\n| %v | %v | %v |\n|---|---|---|\n| %v | %v | %v |\n|---|---|---|\n| %v | %v | %v |\n|---|---|---|\n",
 		b[0][0], b[1][0], b[2][0],
-		b[0][1], b[1][1], b[1][2],
-		b[0][2], b[2][1], b[2][2])
+		b[0][1], b[1][1], b[2][1],
+		b[0][2], b[1][2], b[2][2])
 }
 
 //NewBoard creates a new empty game board
