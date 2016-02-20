@@ -44,47 +44,51 @@ func TestBoardStringer(t *testing.T) {
 type gamePlayer func(g *Game)
 
 var gameWonTests = []struct {
+	name       string
 	gamePlayer gamePlayer
 	won        bool
 }{
-	{gamePlayer: func(g *Game) {},
-		won: false},
-	{gamePlayer: func(g *Game) {
+	{name: "Board empty",
+		gamePlayer: func(g *Game) {},
+		won:        false},
+	{name: "Win Should be True",
+		gamePlayer: func(g *Game) {
 
-		posToPlay := []Position{{0, 0},
-			{1, 1}, //player 2
-			{0, 1},
-			{1, 2}, //player 2
-			{0, 2}}
+			posToPlay := []Position{{0, 0},
+				{1, 1}, //player 2
+				{0, 1},
+				{1, 2}, //player 2
+				{0, 2}}
 
-		for _, p := range posToPlay {
-			err := g.PlayTurn(p)
-			if err != nil {
-				panic(err)
+			for _, p := range posToPlay {
+				err := g.PlayTurn(p)
+				if err != nil {
+					panic(err)
+				}
 			}
-		}
-	},
+		},
 		won: true},
-	{gamePlayer: func(g *Game) {
+	{name: "Win should be false",
+		gamePlayer: func(g *Game) {
 
-		g.PlayTurn(Position{0, 0})
+			g.PlayTurn(Position{0, 0})
 
-		// Player two plays
-		g.PlayTurn(Position{1, 1})
+			// Player two plays
+			g.PlayTurn(Position{1, 1})
 
-		g.PlayTurn(Position{2, 2})
+			g.PlayTurn(Position{2, 2})
 
-		// Player two plays
-		g.PlayTurn(Position{1, 2})
+			// Player two plays
+			g.PlayTurn(Position{1, 2})
 
-		g.PlayTurn(Position{0, 2})
-	},
+			g.PlayTurn(Position{0, 2})
+		},
 		won: false},
 }
 
 func TestIsGameWon(t *testing.T) {
-	t.SkipNow() //not implemented yet
 	for _, tt := range gameWonTests {
+		t.Logf("Starting test called: %s", tt.name)
 		g := NewGame()
 		tt.gamePlayer(g)
 		w := g.IsGameWon()

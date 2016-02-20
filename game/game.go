@@ -9,7 +9,8 @@ func NewGame() *Game {
 	p1 := &Player{marker: X}
 	p2 := &Player{marker: O}
 	return &Game{board: NewBoard(),
-		players: []*Player{p1, p2}}
+		players:    []*Player{p1, p2},
+		winChecker: NewWinChecker()}
 }
 
 //Game represents a game of tictacto
@@ -32,13 +33,7 @@ func (g *Game) IsGameWon() bool {
 		return false
 	}
 
-	g.isGameWon(g.board.SpaceAt(Position{0, 0}))
-
-	return false
-}
-
-func (g *Game) isGameWon(s *Space) bool {
-	return false
+	return g.winChecker.Winner() != nil
 }
 
 func (g *Game) IsCatsGame() bool {
@@ -46,7 +41,7 @@ func (g *Game) IsCatsGame() bool {
 }
 
 func (g *Game) Winner() *Player {
-	return g.winner
+	return g.winChecker.Winner()
 }
 
 //PlayTurn places a marker for the current player at the
@@ -59,6 +54,8 @@ func (g *Game) PlayTurn(p Position) error {
 		return err
 	}
 	g.turn++
+
+	g.winChecker.TurnPlayed(cp, p)
 
 	//Update current player
 	//g.currentPlayerIndex should only ever be 0 or 1

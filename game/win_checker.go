@@ -1,10 +1,18 @@
 package game
 
+import "fmt"
+
+func NewWinChecker() WinChecker {
+	setups := make(map[Position][]winningPlay)
+	winningPlay := make(map[Position]*Player)
+	return &mapWinChecker{setups: setups, winningPlay: winningPlay}
+}
+
 //WinChecker checks to see whether a game has a winner
 type WinChecker interface {
 	//WinChecker expects this method to be called everytime a turn has
 	//occurred in a game
-	TurnPlayed(p Player, pos Position)
+	TurnPlayed(p *Player, pos Position)
 	//Winner returns the player who has won the game or nil if noone has
 	//won yet
 	Winner() *Player
@@ -26,8 +34,28 @@ type mapWinChecker struct {
 	winningPlay map[Position]*Player
 }
 
-func (m *mapWinChecker) TurnPlayed(p *Player, pos Position) {
+func (m *mapWinChecker) Winner() *Player {
+	return m.winner
+}
 
+func (m *mapWinChecker) TurnPlayed(p *Player, pos Position) {
+	if w, ok := m.winningPlay[pos]; ok {
+		fmt.Printf("Winning play made at: %v for player %v\n", pos, p)
+		m.winner = w
+		return
+	}
+
+	if wps, ok := m.setups[pos]; ok {
+		fmt.Printf("Setup play made at: %v for player %v\n", pos, p)
+		for _, wp := range wps {
+			if wp.player != p {
+				break
+			}
+			m.winningPlay[wp.pos] = wp.player
+		}
+	}
+
+	m.updateSetups(p, pos)
 }
 
 type setupPosition struct {

@@ -28,7 +28,9 @@ var setupTests = []struct {
 
 func TestGame_updateSetups(t *testing.T) {
 	for _, tt := range setupTests {
-		m := mapWinChecker{make(map[Position][]winningPlay)}
+		setups := make(map[Position][]winningPlay)
+		winningPlay := make(map[Position]*Player)
+		m := mapWinChecker{setups: setups, winningPlay: winningPlay}
 		m.updateSetups(tt.pl, tt.pos)
 		if !reflect.DeepEqual(m.setups, tt.out) {
 			t.Errorf("mapWinChecker.updateSetups(%v, %v):\n %v \nexpected:\n %v\n",
