@@ -1,6 +1,9 @@
 package game
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 type markerPlacer func(Board)
 
@@ -82,7 +85,35 @@ var gameWonTests = []struct {
 		won: false},
 }
 
+var setupTests = []struct {
+	in  Position
+	out map[Position][]Position
+}{
+	{
+		in: Position{0, 0},
+		out: map[Position][]Position{
+			{0, 1}: {{0, 2}},
+			{1, 1}: {{2, 0}},
+			{1, 2}: {{2, 2}},
+			{0, 0}: {{0, 1}},
+			{2, 0}: {{1, 1}},
+			{2, 2}: {{1, 2}},
+		},
+	},
+}
+
+func TestGame_updateSetups(t *testing.T) {
+	for _, tt := range setupTests {
+		g := NewGame()
+		g.updateSetups(tt.in)
+		if !reflect.DeepEqual(g.setups, tt.out) {
+			t.Errorf("Game.updateSetups(%v): %v expected: %v", tt.in, g.setups, tt.out)
+		}
+	}
+}
+
 func TestIsGameWon(t *testing.T) {
+	t.SkipNow() //not implemented yet
 	for _, tt := range gameWonTests {
 		g := NewGame()
 		tt.gamePlayer(g)
