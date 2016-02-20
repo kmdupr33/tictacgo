@@ -5,19 +5,23 @@ import (
 	"testing"
 )
 
+var pl1 = &Player{X}
+
 var setupTests = []struct {
-	in  Position
-	out map[Position][]Position
+	pl  *Player
+	pos Position
+	out map[Position][]winningPlay
 }{
 	{
-		in: Position{0, 0},
-		out: map[Position][]Position{
-			{0, 1}: {{0, 2}},
-			{1, 1}: {{2, 0}},
-			{1, 2}: {{2, 2}},
-			{0, 0}: {{0, 1}},
-			{2, 0}: {{1, 1}},
-			{2, 2}: {{1, 2}},
+		pl:  pl1,
+		pos: Position{0, 0},
+		out: map[Position][]winningPlay{
+			{0, 1}: {{pl1, Position{0, 2}}},
+			{1, 1}: {{pl1, Position{2, 0}}},
+			{1, 2}: {{pl1, Position{2, 2}}},
+			{0, 0}: {{pl1, Position{0, 1}}},
+			{2, 0}: {{pl1, Position{1, 1}}},
+			{2, 2}: {{pl1, Position{1, 2}}},
 		},
 	},
 }
@@ -25,9 +29,10 @@ var setupTests = []struct {
 func TestGame_updateSetups(t *testing.T) {
 	for _, tt := range setupTests {
 		m := mapWinChecker{}
-		m.updateSetups(tt.in)
+		m.updateSetups(tt.pl, tt.pos)
 		if !reflect.DeepEqual(m.setups, tt.out) {
-			t.Errorf("mapWinChecker.updateSetups(%v): %v expected: %v", tt.in, m.setups, tt.out)
+			t.Errorf("mapWinChecker.updateSetups(%v, %v): %v expected: %v",
+				tt.pl, tt.pos, m.setups, tt.out)
 		}
 	}
 }

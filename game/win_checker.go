@@ -10,16 +10,22 @@ type WinChecker interface {
 	Winner() *Player
 }
 
+type winningPlay struct {
+	//TODO Stop passing around pointers to Players
+	player *Player
+	pos    Position
+}
+
 type mapWinChecker struct {
 	//setups maps a position on the board to a slice of positions that
 	//, if played, would put a player one move away from winning the game
-	setups map[Position][]Position
+	setups map[Position][]winningPlay
 }
 
-func (m *mapWinChecker) TurnPlayed(p Player, pos Position) {
+func (m *mapWinChecker) TurnPlayed(p *Player, pos Position) {
 
 }
 
-func (m *mapWinChecker) updateSetups(pos Position) {
+func (m *mapWinChecker) updateSetups(p *Player, pos Position) {
 
 }

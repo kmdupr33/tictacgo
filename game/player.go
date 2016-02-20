@@ -9,7 +9,8 @@ type Marker int
 
 //Player Markers
 const (
-	_        = iota
+	_ = iota
+	//TODO Remove unnecessary iota
 	X Marker = iota
 	O Marker = iota
 )
