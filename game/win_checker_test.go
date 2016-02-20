@@ -17,21 +17,21 @@ var setupTests = []struct {
 		pos: Position{0, 0},
 		out: map[Position][]winningPlay{
 			{0, 1}: {{pl1, Position{0, 2}}},
-			{1, 1}: {{pl1, Position{2, 0}}},
-			{1, 2}: {{pl1, Position{2, 2}}},
-			{0, 0}: {{pl1, Position{0, 1}}},
-			{2, 0}: {{pl1, Position{1, 1}}},
-			{2, 2}: {{pl1, Position{1, 2}}},
+			{1, 1}: {{pl1, Position{2, 2}}},
+			{2, 0}: {{pl1, Position{1, 0}}},
+			{2, 2}: {{pl1, Position{1, 1}}},
+			{0, 2}: {{pl1, Position{0, 1}}},
+			{1, 0}: {{pl1, Position{2, 0}}},
 		},
 	},
 }
 
 func TestGame_updateSetups(t *testing.T) {
 	for _, tt := range setupTests {
-		m := mapWinChecker{}
+		m := mapWinChecker{make(map[Position][]winningPlay)}
 		m.updateSetups(tt.pl, tt.pos)
 		if !reflect.DeepEqual(m.setups, tt.out) {
-			t.Errorf("mapWinChecker.updateSetups(%v, %v): %v expected: %v",
+			t.Errorf("mapWinChecker.updateSetups(%v, %v):\n %v \nexpected:\n %v\n",
 				tt.pl, tt.pos, m.setups, tt.out)
 		}
 	}

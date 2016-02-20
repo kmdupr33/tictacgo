@@ -20,12 +20,102 @@ type mapWinChecker struct {
 	//setups maps a position on the board to a slice of positions that
 	//, if played, would put a player one move away from winning the game
 	setups map[Position][]winningPlay
+
+	winner *Player
+
+	winningPlay map[Position]*Player
 }
 
 func (m *mapWinChecker) TurnPlayed(p *Player, pos Position) {
 
 }
 
-func (m *mapWinChecker) updateSetups(p *Player, pos Position) {
+type setupPosition struct {
+	setupPos   Position
+	winningPos Position
+}
 
+func (m *mapWinChecker) updateSetups(p *Player, pos Position) {
+	var setupPositions []setupPosition
+	switch pos {
+	case Position{0, 0}:
+		setupPositions = []setupPosition{
+			{Position{1, 0}, Position{2, 0}},
+			{Position{2, 0}, Position{1, 0}},
+			{Position{0, 1}, Position{0, 2}},
+			{Position{0, 2}, Position{0, 1}},
+			{Position{1, 1}, Position{2, 2}},
+			{Position{2, 2}, Position{1, 1}},
+		}
+	case Position{0, 1}:
+		setupPositions = []setupPosition{
+			{Position{0, 0}, Position{0, 2}},
+			{Position{0, 2}, Position{0, 0}},
+			{Position{1, 1}, Position{2, 1}},
+			{Position{2, 1}, Position{1, 1}},
+		}
+	case Position{0, 2}:
+		setupPositions = []setupPosition{
+			{Position{0, 1}, Position{0, 0}},
+			{Position{1, 1}, Position{2, 0}},
+			{Position{1, 2}, Position{2, 2}},
+			{Position{0, 0}, Position{0, 1}},
+			{Position{2, 0}, Position{1, 1}},
+			{Position{2, 2}, Position{1, 2}},
+		}
+	case Position{1, 0}:
+		setupPositions = []setupPosition{
+			{Position{0, 0}, Position{2, 0}},
+			{Position{2, 0}, Position{0, 0}},
+			{Position{1, 1}, Position{1, 2}},
+			{Position{1, 2}, Position{1, 1}},
+		}
+	case Position{1, 1}:
+		setupPositions = []setupPosition{
+			{Position{0, 0}, Position{2, 2}},
+			{Position{2, 2}, Position{0, 0}},
+			{Position{2, 0}, Position{0, 2}},
+			{Position{0, 2}, Position{2, 0}},
+			{Position{1, 0}, Position{1, 2}},
+			{Position{1, 2}, Position{1, 0}},
+			{Position{0, 1}, Position{2, 1}},
+			{Position{2, 1}, Position{0, 1}},
+		}
+	case Position{1, 2}:
+		setupPositions = []setupPosition{
+			{Position{0, 2}, Position{2, 2}},
+			{Position{2, 2}, Position{0, 2}},
+			{Position{1, 0}, Position{1, 1}},
+			{Position{1, 1}, Position{1, 0}},
+		}
+	case Position{2, 0}:
+		setupPositions = []setupPosition{
+			{Position{1, 1}, Position{0, 2}},
+			{Position{0, 2}, Position{1, 1}},
+			{Position{0, 0}, Position{1, 0}},
+			{Position{1, 0}, Position{0, 0}},
+			{Position{2, 1}, Position{2, 2}},
+			{Position{2, 2}, Position{2, 1}},
+		}
+	case Position{2, 1}:
+		setupPositions = []setupPosition{
+			{Position{2, 0}, Position{2, 2}},
+			{Position{2, 2}, Position{2, 0}},
+			{Position{1, 1}, Position{0, 1}},
+			{Position{0, 1}, Position{1, 1}},
+		}
+	case Position{2, 2}:
+		setupPositions = []setupPosition{
+			{Position{2, 1}, Position{2, 0}},
+			{Position{2, 0}, Position{2, 1}},
+			{Position{0, 2}, Position{1, 2}},
+			{Position{1, 2}, Position{0, 2}},
+			{Position{1, 1}, Position{0, 0}},
+			{Position{0, 0}, Position{1, 1}},
+		}
+	}
+	for _, sP := range setupPositions {
+		m.setups[sP.setupPos] = append(m.setups[sP.setupPos],
+			winningPlay{p, sP.winningPos})
+	}
 }
