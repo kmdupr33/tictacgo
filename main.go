@@ -16,7 +16,7 @@ func main() {
 
 	printNewGameMessage()
 
-	for !g.IsWon() || !g.IsCatsGame() {
+	for !g.IsWon() && !g.IsCatsGame() {
 
 		reader := bufio.NewReader(os.Stdin)
 		fmt.Println(g.String())
