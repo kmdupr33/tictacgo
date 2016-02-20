@@ -86,12 +86,12 @@ var gameWonTests = []struct {
 		won: false},
 }
 
-func TestIsGameWon(t *testing.T) {
+func Game_IsWon(t *testing.T) {
 	for _, tt := range gameWonTests {
 		t.Logf("Starting test called: %s", tt.name)
 		g := NewGame()
 		tt.gamePlayer(g)
-		w := g.IsGameWon()
+		w := g.IsWon()
 		if w != tt.won {
 			t.Logf("Supposed winner: %v", g.Winner())
 			t.Logf("\n%v", g.board)

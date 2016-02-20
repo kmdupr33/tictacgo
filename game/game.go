@@ -28,7 +28,7 @@ type Position struct {
 	x, y int
 }
 
-func (g *Game) IsGameWon() bool {
+func (g *Game) IsWon() bool {
 	if g.turn < 4 {
 		return false
 	}
