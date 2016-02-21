@@ -55,7 +55,7 @@ func (g *Game) IsWon() bool {
 	return g.winChecker.Winner() != nil
 }
 
-//IsCatsGame returns whether the game has a winner
+//IsCatsGame returns whether the game is impossible to win
 func (g *Game) IsCatsGame() bool {
 	return g.board.IsFull()
 }
