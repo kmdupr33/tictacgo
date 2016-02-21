@@ -38,7 +38,7 @@ func (b *arrayBoard) SpaceAt(p Position) *Space {
 
 func (b *arrayBoard) PlaceMarker(pos Position, m Marker) error {
 	if !isValCoord(pos.X) || !isValCoord(pos.Y) {
-		return errors.New("invalid coordinate")
+		return errors.New("game: invalid coordinate")
 	}
 	s := b[pos.X][pos.Y]
 	if !s.IsEmpty() {
