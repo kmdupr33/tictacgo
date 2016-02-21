@@ -31,13 +31,13 @@ type Game struct {
 
 func (g *Game) String() string {
 	string := g.board.String()
-	if !g.IsWon() {
-		return string +
-			fmt.Sprintf("%v's Turn: ", g.CurrentPlayer())
-	} else if !g.IsCatsGame() {
+	if g.IsCatsGame() {
+		return string + fmt.Sprintf("Cat's game!")
+	} else if g.IsWon() {
 		return string + fmt.Sprintf("%v's game!\n", g.Winner())
 	}
-	return string + fmt.Sprintf("Cat's game!")
+	return string +
+		fmt.Sprintf("%v's Turn: ", g.CurrentPlayer())
 }
 
 //Position represents a positon on a tictacto grid valid x and y values
