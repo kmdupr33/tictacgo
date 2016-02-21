@@ -44,53 +44,39 @@ func TestBoardStringer(t *testing.T) {
 type gamePlayer func(g *Game)
 
 var gameWonTests = []struct {
-	name       string
-	gamePlayer gamePlayer
-	won        bool
+	name      string
+	posToPlay []Position
+	won       bool
 }{
 	{name: "Board empty",
-		gamePlayer: func(g *Game) {},
-		won:        false},
+		posToPlay: nil,
+		won:       false},
 	{name: "Win Should be True",
-		gamePlayer: func(g *Game) {
-
-			posToPlay := []Position{{0, 0},
-				{1, 1}, //player 2
-				{0, 1},
-				{1, 2}, //player 2
-				{0, 2}}
-
-			for _, p := range posToPlay {
-				err := g.PlayTurn(p)
-				if err != nil {
-					panic(err)
-				}
-			}
-		},
+		posToPlay: []Position{{0, 0},
+			{1, 1}, //player 2
+			{0, 1},
+			{1, 2}, //player 2
+			{0, 2}},
 		won: true},
 	{name: "Win should be false",
-		gamePlayer: func(g *Game) {
-
-			g.PlayTurn(Position{0, 0})
-
-			// Player two plays
-			g.PlayTurn(Position{1, 1})
-
-			g.PlayTurn(Position{2, 2})
-
-			// Player two plays
-			g.PlayTurn(Position{1, 2})
-
-			g.PlayTurn(Position{0, 2})
-		},
+		posToPlay: []Position{{0, 0},
+			{1, 1}, // Player two plays
+			{2, 2},
+			{1, 2},
+			{0, 2}}, // Player two plays
 		won: false},
 }
 
-func Game_IsWon(t *testing.T) {
+func TestGame_IsWon(t *testing.T) {
 	for _, tt := range gameWonTests {
 		t.Logf("Starting test called: %s", tt.name)
 		g := New()
-		tt.gamePlayer(g)
+		for _, p := range tt.posToPlay {
+			err := g.PlayTurn(p)
+			if err != nil {
+				panic(err)
+			}
+		}
 		w := g.IsWon()
 		if w != tt.won {
 			t.Logf("Supposed winner: %v", g.Winner())
