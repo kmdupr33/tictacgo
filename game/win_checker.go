@@ -57,6 +57,7 @@ func (m *mapWinChecker) TurnPlayed(p *Player, pos Position) {
 	}
 
 	m.updateSetups(p, pos)
+	log.Println(m.setups)
 }
 
 type setupPosition struct {
