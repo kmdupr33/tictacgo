@@ -1,0 +1,5 @@
+2016/02/20 20:26:46 New Game started
+2016/02/20 20:26:46 Found non-empty space at: {0,0}
+2016/02/20 20:26:46 Found non-empty space at: {0,0}
+2016/02/20 20:26:49 Found non-empty space at: {0,0}
+2016/02/20 20:26:49 Found non-empty space at: {0,0}

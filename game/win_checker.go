@@ -5,7 +5,11 @@ import "log"
 func NewWinChecker() WinChecker {
 	setups := make(map[Position][]winningPlay)
 	winningPlay := make(map[Position]*Player)
-	return &mapWinChecker{setups: setups, winningPlay: winningPlay}
+	openPositions := []Position{{0, 0}, {0, 1}, {0, 2},
+		{1, 0}, {1, 1}, {1, 2},
+		{2, 0}, {2, 1}, {2, 2},
+	}
+	return &mapWinChecker{setups: setups, winningPlay: winningPlay, openPositions: openPositions}
 }
 
 //WinChecker checks to see whether a game has a winner
@@ -16,6 +20,8 @@ type WinChecker interface {
 	//Winner returns the player who has won the game or nil if noone has
 	//won yet
 	Winner() *Player
+
+	OpenSpaces() []Position
 }
 
 type winningPlay struct {
@@ -32,6 +38,12 @@ type mapWinChecker struct {
 	winner *Player
 
 	winningPlay map[Position]*Player
+
+	openPositions []Position
+}
+
+func (m *mapWinChecker) OpenSpaces() []Position {
+	return m.openPositions
 }
 
 func (m *mapWinChecker) Winner() *Player {
@@ -39,6 +51,7 @@ func (m *mapWinChecker) Winner() *Player {
 }
 
 func (m *mapWinChecker) TurnPlayed(p *Player, pos Position) {
+
 	if w, ok := m.winningPlay[pos]; ok {
 		if w == p {
 			log.Printf("Winning play at: %v made by: %v", pos, p)

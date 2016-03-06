@@ -1,21 +1,38 @@
-2016/02/20 19:04:00 New Game started
-2016/02/20 19:04:00 Found non-empty space at: {0,0}
-2016/02/20 19:04:00 Found non-empty space at: {0,0}
-2016/02/20 19:04:06 Found non-empty space at: {0,0}
-2016/02/20 19:04:06 Found non-empty space at: {0,0}
-2016/02/20 19:04:09 Found non-empty space at: {0,0}
-2016/02/20 19:04:09 Found non-empty space at: {0,0}
-2016/02/20 19:04:27 Found non-empty space at: {0,1}
-2016/02/20 19:04:27 Found non-empty space at: {0,1}
-2016/02/20 19:06:02 Found non-empty space at: {0,1}
-2016/02/20 19:06:02 Found non-empty space at: {0,1}
-2016/02/20 19:06:10 Found non-empty space at: {0,1}
-2016/02/20 19:06:10 Found non-empty space at: {0,1}
-2016/02/20 19:06:26 Found non-empty space at: {0,1}
-2016/02/20 19:06:26 Found non-empty space at: {0,1}
-2016/02/20 19:06:32 Found non-empty space at: {0,1}
-2016/02/20 19:06:32 Found non-empty space at: {0,1}
-2016/02/20 19:06:46 Found non-empty space at: {1,0}
-2016/02/20 19:06:46 Found non-empty space at: {1,0}
-2016/02/20 19:06:52 Winning play at: {1 0} made by: X
-2016/02/20 19:06:52 Found non-empty space at: {2,1}
+2016/03/06 16:07:19 New Game started
+2016/03/06 16:07:19 Player 2 is computer
+2016/03/06 16:07:19 Found non-empty space at: {0,0}
+2016/03/06 16:07:19 Found non-empty space at: {0,0}
+2016/03/06 16:07:19 Non-computer player. Prompting user
+2016/03/06 16:07:21 Playing turn for: <nil> at position {0 0}
+2016/03/06 16:07:21 Found non-empty space at: {0,1}
+2016/03/06 16:07:21 Found non-empty space at: {0,1}
+2016/03/06 16:07:21 Computer player. Getting position from player
+2016/03/06 16:07:21 Playing turn for: &{0xc820012280} at position {2 0}
+2016/03/06 16:07:21 Found non-empty space at: {0,1}
+2016/03/06 16:07:21 Found non-empty space at: {0,1}
+2016/03/06 16:07:21 Non-computer player. Prompting user
+2016/03/06 16:07:24 Playing turn for: <nil> at position {1 1}
+2016/03/06 16:07:24 Found non-empty space at: {0,1}
+2016/03/06 16:07:24 Found non-empty space at: {0,1}
+2016/03/06 16:07:24 Computer player. Getting position from player
+2016/03/06 16:07:24 Playing turn for: &{0xc820012280} at position {2 2}
+2016/03/06 16:07:24 Found non-empty space at: {0,1}
+2016/03/06 16:07:24 Found non-empty space at: {0,1}
+2016/03/06 16:07:24 Non-computer player. Prompting user
+2016/03/06 16:07:35 Playing turn for: <nil> at position {1 0}
+2016/03/06 16:07:35 Found non-empty space at: {0,1}
+2016/03/06 16:07:35 Found non-empty space at: {0,1}
+2016/03/06 16:07:35 Computer player. Getting position from player
+2016/03/06 16:07:35 Playing turn for: &{0xc820012280} at position {1 2}
+2016/03/06 16:07:35 Found non-empty space at: {0,1}
+2016/03/06 16:07:35 Found non-empty space at: {0,1}
+2016/03/06 16:07:35 Non-computer player. Prompting user
+2016/03/06 16:07:42 Playing turn for: <nil> at position {2 1}
+2016/03/06 16:07:42 Found non-empty space at: {0,1}
+2016/03/06 16:07:42 Found non-empty space at: {0,1}
+2016/03/06 16:07:42 Computer player. Getting position from player
+2016/03/06 16:07:42 Playing turn for: &{0xc820012280} at position {0 2}
+2016/03/06 16:07:42 Found non-empty space at: {0,1}
+2016/03/06 16:07:42 Found non-empty space at: {0,1}
+2016/03/06 16:07:42 Non-computer player. Prompting user
+2016/03/06 16:07:50 Playing turn for: <nil> at position {0 1}
