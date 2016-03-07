@@ -14,10 +14,8 @@ type randomComputerPlayerBrain struct {
 
 func (r *randomComputerPlayerBrain) getComputerPlayerMove() Position {
 
-	x := randPos()
-	y := randPos()
+	pos := randPos()
 
-	pos := Position{x, y}
 	sp := r.board.SpaceAt(pos)
 
 	if sp.IsEmpty() {
@@ -27,6 +25,10 @@ func (r *randomComputerPlayerBrain) getComputerPlayerMove() Position {
 	return r.getComputerPlayerMove()
 }
 
-func randPos() int {
-	return rand.Intn(3)
+func randPos() Position {
+	x := rand.Intn(3)
+	y := rand.Intn(3)
+
+	pos := Position{x, y}
+	return pos
 }
