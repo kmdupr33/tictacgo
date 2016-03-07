@@ -4,7 +4,7 @@ import "log"
 
 func NewWinChecker() WinChecker {
 	setups := make(map[Position][]winningPlay)
-	winningPlay := make(map[Position]*Player)
+	winningPlay := make(map[Position][]*Player)
 	return &mapWinChecker{setups: setups, winningPlay: winningPlay}
 }
 
@@ -31,7 +31,7 @@ type mapWinChecker struct {
 
 	winner *Player
 
-	winningPlay map[Position]*Player
+	winningPlay map[Position][]*Player
 }
 
 func (m *mapWinChecker) Winner() *Player {
@@ -40,19 +40,24 @@ func (m *mapWinChecker) Winner() *Player {
 
 func (m *mapWinChecker) TurnPlayed(p *Player, pos Position) {
 	if w, ok := m.winningPlay[pos]; ok {
-		if w == p {
-			log.Printf("Winning play at: %v made by: %v", pos, p)
-			m.winner = w
-			return
+		log.Println("potential winning play")
+		for _, pl := range w {
+			if pl == p {
+				log.Printf("Winning play at: %v made by: %v", pos, p)
+				m.winner = pl
+				return
+			}
 		}
+
 	}
 
 	if wps, ok := m.setups[pos]; ok {
+		log.Println("Setup play made")
 		for _, wp := range wps {
-			if wp.player != p {
-				break
+			if wp.player == p {
+				log.Printf("Added winning play at: %v for player: %v", wp.pos, wp.player)
+				m.winningPlay[wp.pos] = append(m.winningPlay[wp.pos], wp.player)
 			}
-			m.winningPlay[wp.pos] = wp.player
 		}
 	}
 
@@ -148,4 +153,5 @@ func (m *mapWinChecker) updateSetups(p *Player, pos Position) {
 		m.setups[sP.setupPos] = append(m.setups[sP.setupPos],
 			winningPlay{p, sP.winningPos})
 	}
+	log.Printf("Adding setup positions: %v for player: %v", setupPositions, p)
 }

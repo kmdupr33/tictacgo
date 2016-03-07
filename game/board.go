@@ -3,7 +3,6 @@ package game
 import (
 	"errors"
 	"fmt"
-	"log"
 )
 
 //-------------------------------------------------
@@ -22,9 +21,8 @@ type arrayBoard [3][3]*Space
 
 func (b *arrayBoard) IsFull() bool {
 	for i := 0; i < 3; i++ {
-		for j, s := range b[i] {
+		for _, s := range b[i] {
 			if s.IsEmpty() {
-				log.Printf("Found non-empty space at: {%v,%v}", i, j)
 				return false
 			}
 		}
