@@ -29,9 +29,10 @@ type mapWinChecker struct {
 	//, if played, would put a player one move away from winning the game
 	setups map[Position][]winningPlay
 
-	winner *Player
-
+	winner      *Player
 	winningPlay map[Position][]*Player
+
+	openPositions []Position
 }
 
 func (m *mapWinChecker) Winner() *Player {
@@ -39,6 +40,7 @@ func (m *mapWinChecker) Winner() *Player {
 }
 
 func (m *mapWinChecker) TurnPlayed(p *Player, pos Position) {
+
 	if w, ok := m.winningPlay[pos]; ok {
 		log.Println("potential winning play")
 		for _, pl := range w {

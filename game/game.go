@@ -9,12 +9,26 @@ import (
 // Game
 //-------------------------------------------------
 
-//New returns a new game of tictacto
-func New() *Game {
+/*New returns a new game of tictacto
+computerPlayer specifies which player is a computer player.
+If 0 is passed in, neither player is a computer.
+*/
+func New(computerPlayer int) *Game {
 	log.Print("New Game started")
 	p1 := &Player{marker: X}
 	p2 := &Player{marker: O}
-	return &Game{board: NewBoard(),
+	b := NewBoard()
+	switch computerPlayer {
+	case 1:
+		log.Println("Player 1 is computer")
+		p1.brain = &randomComputerPlayerBrain{b}
+	case 2:
+		log.Println("Player 2 is computer")
+		p2.brain = &randomComputerPlayerBrain{b}
+	default:
+		log.Println("No computer players")
+	}
+	return &Game{board: b,
 		players:    []*Player{p1, p2},
 		winChecker: NewWinChecker()}
 }
@@ -31,10 +45,10 @@ type Game struct {
 
 func (g *Game) String() string {
 	string := g.board.String()
-	if g.IsCatsGame() {
-		return string + fmt.Sprintf("Cat's game!")
-	} else if g.IsWon() {
+	if g.IsWon() {
 		return string + fmt.Sprintf("%v's game!\n", g.Winner())
+	} else if g.IsCatsGame() {
+		return string + fmt.Sprintf("Cat's game!")
 	}
 	return string +
 		fmt.Sprintf("%v's Turn: ", g.CurrentPlayer())
@@ -72,6 +86,7 @@ func (g *Game) Winner() *Player {
 //or if the position passed in has invalid x or y coordinates
 func (g *Game) PlayTurn(p Position) error {
 	cp := g.CurrentPlayer()
+	log.Printf("Playing turn for: %v at position %v", cp.brain, p)
 	err := g.board.PlaceMarker(p, cp.marker)
 	if err != nil {
 		return err
